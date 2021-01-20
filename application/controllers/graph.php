@@ -1487,7 +1487,8 @@ class Graph extends CI_Controller {
         $record_array_final = $results;
 
 
-        $heading_query = $this->form_results_model->getTableHeadingsFromSchema('zform_' . $form_id);
+        $heading_query = $this->form_results_model->
+        getTableHeadingsFromSchema('zform_' . $form_id);
         foreach ($heading_query as $key => $value) {
             $header_value = $value['COLUMN_NAME'];
             if (!in_array($header_value, $table_headers_array)) {
@@ -1504,7 +1505,8 @@ class Graph extends CI_Controller {
                 $filter_data = array();
 
                 if (in_array($filter_attribute_value, $table_headers_array)) {
-//                    if ($selected_form['app_id'] == 1293 || $selected_form['app_id'] == 1567) {
+//                    if ($selected_form['app_id'] == 1293 || 
+//                    $selected_form['app_id'] == 1567) {
 //                        foreach ($record_array_final as $key => $form_item) {
 //
 //                            if (!empty($form_item[$filter_attribute_value])) {
@@ -1513,7 +1515,8 @@ class Graph extends CI_Controller {
 //                                    $key = explode(',', $key);
 //                                    $value = ($form_item[$filter_attribute_value]);
 //                                    $value = explode(',', $value);
-//                                    $filter_data = array_merge($filter_data, array($key[0] => $value[0]));
+//                                    $filter_data = array_merge($filter_data, 
+//                                    array($key[0] => $value[0]));
 //                                }
 //                            }
 //                        }
@@ -1547,7 +1550,9 @@ class Graph extends CI_Controller {
         $selected_form = $this->form_model->get_form($slug);
         //print_r($selected_form);
         $form_single_to_query = array();
-        $form_single_to_query[] = array('form_id' => $form_id, 'table_name' => 'zform_' . $form_id, 'form_name' => $selected_form['name']);
+        $form_single_to_query[] = array('form_id' => $form_id, 
+        'table_name' => 'zform_' . $form_id, 'form_name' => 
+        $selected_form['name']);
 
         /** Get filters from  multiple forms * */
         $multiple_filters = $this->form_model->get_form_filters($form_single_to_query);
@@ -1573,7 +1578,8 @@ class Graph extends CI_Controller {
 
         $filter_result = get_graph_view_settings($selected_form['app_id']);
 
-        if (isset($filter_result->district_wise_report) && $filter_result->district_wise_report == 1) {
+        if (isset($filter_result->district_wise_report) && 
+        $filter_result->district_wise_report == 1) {
 
             $new_category_list = array();
             foreach ($category_list as $cl_key => $cl_value) {
@@ -1592,7 +1598,9 @@ class Graph extends CI_Controller {
             $data['category_list'] = $new_category_list;
             $final_district_wise_array2 = array();
             foreach ($new_category_list as $cat_listv) {
-                $district_wise_catorized = $this->form_results_model->get_district_categorized_count_new($form_id, "", $filter_attribute[0], $cat_listv, $from_date, $to_date);
+                $district_wise_catorized = $this->form_results_model->
+                get_district_categorized_count_new($form_id, "", 
+                $filter_attribute[0], $cat_listv, $from_date, $to_date);
 
                 foreach ($district_wise_catorized as $key => $val) {
                     if (!array_key_exists($val['district_name'], $final_district_wise_array2)) {
