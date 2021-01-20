@@ -1408,9 +1408,12 @@ class Graph extends CI_Controller {
         foreach ($record_array_final as $record) {
             $uc_name = $record['uc_name'];
             if (!empty($uc_name) & !in_array($uc_name, $uc_counted)) {
-                $category_count = $this->form_results_model->getCountCategoryUcBased($slug, $category_name, $filter_attribute, $uc_name);
+                $category_count = $this->form_results_model->
+                getCountCategoryUcBased($slug, $category_name, 
+                $filter_attribute, $uc_name);
                 if ($category_count > 0) {
-                    $category_uc_set = array_merge($category_uc_set, array($uc_name => $category_count));
+                    $category_uc_set = array_merge($category_uc_set, 
+                    array($uc_name => $category_count));
                 }
                 $totalRecords += $category_count;
                 $uc_counted [] = $uc_name;
@@ -1427,7 +1430,9 @@ class Graph extends CI_Controller {
     }
 
     /**
-     * function to  get heading and form data of  form results table return data array having two values  forms and headings
+     * function to  get heading and form data of  
+     * form results table return data array having 
+     * two values  forms and headings
      * @param  $slug form id
      * @return  void
      * @author UbaidUllah Balti <ubaidcskiu@gmail.com>
@@ -1440,7 +1445,8 @@ class Graph extends CI_Controller {
         $filter_attribute = array();
 
         if ($selected_form['filter'] != '') {
-            $filter_rec = array_filter(array_map('trim', explode(',', $selected_form['filter'])));
+            $filter_rec = array_filter(array_map('trim', 
+            explode(',', $selected_form['filter'])));
             foreach ($filter_rec as $key => $value) {
                 array_push($filter_attribute, $value);
             }
@@ -1461,27 +1467,35 @@ class Graph extends CI_Controller {
         $table_headers_array = array();
         $record_array_final = array();
 
-        $results = $this->form_results_model->return_total_record_for_graph($form_id, $filter_attribute[0]);
+        $results = $this->form_results_model->
+        return_total_record_for_graph($form_id, 
+        $filter_attribute[0]);
 //        echo "<pre>";
 //        print_r($results);die;
 //        foreach ($results as $k => $v) {
 //            $record_array = array();
 //            foreach ($v as $key => $value) {
 ////                    if (!in_array($key, $exclude_array)) {
-//                $record_array = array_merge($record_array, array($key => $value));
+//                $record_array = array_merge($record_array, 
+//                array($key => $value));
 ////                    }
 //            }
 //
 //
-////                $imagess = $this->form_results_model->getResultsImages($v['id'],$form_id);
+////                $imagess = $this->form_results_model->
+////                getResultsImages($v['id'],$form_id);
 ////                if ($imagess) {
 ////                    if (!in_array('image', $table_headers_array)) {
-////                        $table_headers_array = array_merge($table_headers_array, array('image'));
+////                        $table_headers_array = array_merge($table_headers_array, 
+////                        array('image'));
 ////                    }
-////                    $record_array = array_merge($record_array, array('image' => $imagess));
+////                    $record_array = array_merge($record_array, 
+////                    array('image' => $imagess));
 ////                }
 //
-////            $record_array = array_merge($record_array, array('created_datetime' => $v['created_datetime'], 'actions' => $v['id']));
+////            $record_array = array_merge($record_array, 
+////            array('created_datetime' => $v['created_datetime'], 
+////            'actions' => $v['id']));
 //            $record_array_final[] = $record_array;
 //        }
         $record_array_final = $results;
