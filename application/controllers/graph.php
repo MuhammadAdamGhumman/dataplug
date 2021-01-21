@@ -1232,7 +1232,8 @@ class Graph extends CI_Controller {
             $totalRecords = 0;
             foreach ($users_lists_array as $users) {
                 $users_count = $this->form_results_model->getCountUserBased($slug, $users['imei_no']);
-                $users_wise_counter = array_merge($users_wise_counter, array($users['user_name'] => $users_count));
+                $users_wise_counter = array_merge($users_wise_counter, 
+                array($users['user_name'] => $users_count));
                 $totalRecords += $users_count;
             }
             $users_wise_counter[] = arsort($users_wise_counter);
@@ -1252,8 +1253,10 @@ class Graph extends CI_Controller {
             $totalRecords = 0;
             $category_list_count = array();
             foreach ($category_list as $category) {
-                $category_count = $this->form_results_model->getCountCatgoryBased($slug, $category, $filter_attribute);
-                $category_list_count = array_merge($category_list_count, array($category => $category_count));
+                $category_count = $this->form_results_model->
+                getCountCatgoryBased($slug, $category, $filter_attribute);
+                $category_list_count = array_merge($category_list_count, 
+                array($category => $category_count));
                 $totalRecords += $category_count;
             }
             $category_list_count[] = arsort($category_list_count);
@@ -1294,7 +1297,8 @@ class Graph extends CI_Controller {
          */
         $heading_array = array();
         $record_array_final = array();
-        $user_wise_result = $this->form_results_model->getResultUserImeiBased($slug, $imei_number);
+        $user_wise_result = $this->form_results_model->
+        getResultUserImeiBased($slug, $imei_number);
         foreach ($user_wise_result as $k => $v) {
             $record_array = array();
             $result_json = $v['record'];
@@ -1313,11 +1317,14 @@ class Graph extends CI_Controller {
                 $record_array = array_merge($record_array, array($key => $value));
             }
             $record_array = array_merge($record_array, array('uc_name' => $v['uc_name']));
-            $record_array = array_merge($record_array, array('created_datetime' => $v['created_datetime'], 'actions' => $v['id']));
+            $record_array = array_merge($record_array, 
+            array('created_datetime' => $v['created_datetime'], 
+            'actions' => $v['id']));
 
             $record_array_final[] = $record_array;
         }
-        $heading_array = array_merge($heading_array, array('created_datetime', 'actions'));
+        $heading_array = array_merge($heading_array, 
+        array('created_datetime', 'actions'));
         $data['headings'] = $heading_array;
         $data['form'] = $record_array_final;
 
@@ -1330,7 +1337,8 @@ class Graph extends CI_Controller {
         foreach ($record_array_final as $record) {
             $uc_name = $record['uc_name'];
             if (!empty($uc_name) & !in_array($uc_name, $uc_counted)) {
-                $users_count = $this->form_results_model->getCountUserUcBased($slug, $imei_number, $uc_name);
+                $users_count = $this->form_results_model->
+                getCountUserUcBased($slug, $imei_number, $uc_name);
                 if ($users_count > 0) {
                     $users_uc_set = array_merge($users_uc_set, array($uc_name => $users_count));
                 }
@@ -1369,7 +1377,9 @@ class Graph extends CI_Controller {
          */
         $heading_array = array();
         $record_array_final = array();
-        $user_wise_result = $this->form_results_model->getResultSingleCatgory($slug, $category_name, $filter_attribute);
+        $user_wise_result = $this->form_results_model->
+        getResultSingleCatgory($slug, $category_name, 
+        $filter_attribute);
         foreach ($user_wise_result as $k => $v) {
             $record_array = array();
             $result_json = $v['record'];
@@ -1390,11 +1400,14 @@ class Graph extends CI_Controller {
                 $record_array = array_merge($record_array, array($key => $value));
             }
             $record_array = array_merge($record_array, array('uc_name' => $v['uc_name']));
-            $record_array = array_merge($record_array, array('created_datetime' => $v['created_datetime'], 'actions' => $v['id']));
+            $record_array = array_merge($record_array, 
+            array('created_datetime' => $v['created_datetime'], 
+            'actions' => $v['id']));
 
             $record_array_final[] = $record_array;
         }
-        $heading_array = array_merge($heading_array, array('created_datetime', 'actions'));
+        $heading_array = array_merge($heading_array, 
+        array('created_datetime', 'actions'));
         $data['headings'] = $heading_array;
         $data['form'] = $record_array_final;
 
