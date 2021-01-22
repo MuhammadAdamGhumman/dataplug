@@ -1048,8 +1048,11 @@ class Graph extends CI_Controller {
             foreach ($category_list as $category) {
                 $categorieslist = explode(',', $category);
                 foreach ($categorieslist as $catu) {
-                    $category_count = $this->form_results_model->getCountCatgoryBase($form_id, $catu, $filter_attribute, $to_date, $from_date, $selected_district, $selected_sent_by);
-                    $category_list_count = array_merge($category_list_count, array($catu => $category_count));
+                    $category_count = $this->form_results_model->
+                    getCountCatgoryBase($form_id, $catu, $filter_attribute, 
+                    $to_date, $from_date, $selected_district, $selected_sent_by);
+                    $category_list_count = array_merge($category_list_count, 
+                    array($catu => $category_count));
                     $totalRecords += $category_count;
                 }
             }
@@ -1067,7 +1070,8 @@ class Graph extends CI_Controller {
             $data['category_list'] = $category_list;
             $data['total_records'] = $total_record;
             $data['category_list_count'] = $category_list_count;
-            $data['graph_text'] = 'Graph By Category <b> ' . str_replace('_', ' ', $filter_attribute[0]) . '</b>';
+            $data['graph_text'] = 'Graph By Category <b> ' . str_replace('_', 
+            ' ', $filter_attribute[0]) . '</b>';
             $data['pageTitle'] = " Graph-View";
             $data['graph_type'] = 'Category';
             $data['app_id'] = $selected_form['app_id'];
@@ -1081,7 +1085,9 @@ class Graph extends CI_Controller {
 
             $form_id = $forms_list[0]['form_id'];
             $form_single_to_query = array();
-            $form_single_to_query[] = array('form_id' => $form_id, 'table_name' => 'zform_' . $form_id, 'form_name' => $forms_list[0]['form_name']);
+            $form_single_to_query[] = array('form_id' => 
+            $form_id, 'table_name' => 'zform_' . $form_id, 'form_name' => 
+            $forms_list[0]['form_name']);
             /** Get filters from  multiple forms * */
             $multiple_filters = $this->form_model->get_form_filters($form_single_to_query);
             $filter_attribute = array();
@@ -1106,7 +1112,8 @@ class Graph extends CI_Controller {
             //add part for disbursment app - Start
             $formid = '1654';
             $date_search = '';
-            $disbursment_rec = $this->form_results_model->get_disbursment_record($formid, $date_search);
+            $disbursment_rec = $this->form_results_model->
+            get_disbursment_record($formid, $date_search);
             $final_disb_array = array();
             $tehsil_disb_array = array();
             foreach ($disbursment_rec as $myrep) {
@@ -1118,17 +1125,29 @@ class Graph extends CI_Controller {
                     $final_disb_array[$myrep['District']][$myrep['Tehsil']] = array();
                 }
 
-                if (!key_exists($myrep['Disbursement_Center'], $final_disb_array[$myrep['District']][$myrep['Tehsil']])) {
-                    $final_disb_array[$myrep['District']][$myrep['Tehsil']][$myrep['Disbursement_Center']] = array();
+                if (!key_exists($myrep['Disbursement_Center'], 
+                $final_disb_array[$myrep['District']][$myrep['Tehsil']])) {
+                    $final_disb_array[$myrep['District']]
+                    [$myrep['Tehsil']]
+                    [$myrep['Disbursement_Center']] = array();
                 }
 
                 $available_fac = explode(',', $myrep['Facilities_Available']);
                 foreach ($available_fac as $avail_value) {
-                    if (!key_exists('facilities', $final_disb_array[$myrep['District']][$myrep['Tehsil']][$myrep['Disbursement_Center']])) {
-                        $final_disb_array[$myrep['District']][$myrep['Tehsil']][$myrep['Disbursement_Center']]['facilities'] = array();
+                    if (!key_exists('facilities', 
+                    $final_disb_array[$myrep['District']]
+                    [$myrep['Tehsil']][$myrep['Disbursement_Center']])) {
+                        $final_disb_array[$myrep['District']]
+                        [$myrep['Tehsil']][$myrep['Disbursement_Center']]
+                        ['facilities'] = array();
                     }
-                    if (!in_array($avail_value, $final_disb_array[$myrep['District']][$myrep['Tehsil']][$myrep['Disbursement_Center']]['facilities'])) {
-                        array_push($final_disb_array[$myrep['District']][$myrep['Tehsil']][$myrep['Disbursement_Center']]['facilities'], $avail_value);
+                    if (!in_array($avail_value, 
+                    $final_disb_array[$myrep['District']]
+                    [$myrep['Tehsil']][$myrep['Disbursement_Center']]
+                    ['facilities'])) {
+                        array_push($final_disb_array[$myrep['District']]
+                        [$myrep['Tehsil']][$myrep['Disbursement_Center']]
+                        ['facilities'], $avail_value);
                     }
                 }
             }
